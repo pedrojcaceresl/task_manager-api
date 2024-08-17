@@ -12,7 +12,7 @@ from rest_framework.response import Response
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -27,7 +27,7 @@ class TagViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 
 @api_view(['GET'])

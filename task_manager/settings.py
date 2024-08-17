@@ -15,6 +15,9 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -117,9 +120,17 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "postgres.ughmzsugcqnmikumabul",
+        "HOST": os.environ.get("DB_HOST"),
+        "PASSWORD": os.environ.get("DB_PASS"),
+        "PORT": "6543",
+        "OPTIONS": {
+            "sslmode": "verify-full",
+            "sslrootcert": os.path.join(BASE_DIR, "prod-ca-2021.crt"),
+        },
     }
 }
 
