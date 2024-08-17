@@ -4,14 +4,16 @@ from rest_framework import viewsets
 from .models import Task, Category, Tag, User
 from .serializers import TaskSerializer, CategorySerializer, TagSerializer, UserSerializer
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
 
 # Create your views here.
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    # permission_classes = [IsAuthenticated]
-
+    permission_classes = [IsAuthenticated]
+    
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -28,4 +30,9 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
 
-    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def current_user(request):
+    user = request.user
+    serializer = UserSerializer(user)
+    return Response(serializer.data)

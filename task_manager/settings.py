@@ -63,6 +63,33 @@ MIDDLEWARE = [
 #     "https://your-frontend-domain.com",  # Production URL
 #     "*"
 # ]
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=16),  # Duración del token de acceso
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),    # Duración del token de refresco
+    'ROTATE_REFRESH_TOKENS': True,                  # Si se debe rotar el token de refresco
+    'BLACKLIST_AFTER_ROTATION': True,               # Si se debe poner en la lista negra después de la rotación
+    'UPDATE_LAST_LOGIN': False,
+    
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+    
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    
+    'JTI_CLAIM': 'jti',
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -114,7 +141,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
